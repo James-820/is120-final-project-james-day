@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <header>
+    <header class="flex-column-center">
       <h1>Progressive Overload</h1>
       <p>
         This website uses local storage on your browser to help you keep track
@@ -19,25 +19,36 @@
       </p>
     </header>
 
-    <main>
-      <section id="add-input">
-        <button id="add-btn">Add Lift</button>
-        <button id="cancel-btn">Cancel</button>
+    <main class="flex-column-center">
+      <section class="flex-column-center">
+        <div>
+          <button id="add-btn">Add Lift</button>
+          <button id="cancel-btn">Cancel</button>
+        </div>
+        <div id="input-container"></div>
         <!-- The input fields would show up here on clicking the "add" button -->
         <!-- The "add" button would also change to say "Confirm", and a "cancel" button would appear -->
       </section>
 
-      <section id="card-container"></section>
+      <section class="flex-column-center">
+        <h2>Tracked Lifts:</h2>
+        <div id="card-container" class="flex-column-center"></div>
+      </section>
       <!-- The above section is to contain all of the div-card elements that are created -->
       <!-- from reading the localstorage. Each will contain a "Save Changes" and "Delete" button. -->
     </main>
 
-    <footer>
+    <footer class="flex-column-center">
+      <p>This webiste is made by James Day.</p>
       <p>
-        This webiste is made by James Day. See the GitHub for this project
+        See the GitHub for this project
         <a href="https://github.com/James-820/is120-final-project-james-day"
           >here</a
         >.
+      </p>
+      <p>
+        See my LinkedIn
+        <a href="https://www.linkedin.com/in/james-day-258620364/">here</a>.
       </p>
     </footer>
   </body>
