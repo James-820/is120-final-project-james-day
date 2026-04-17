@@ -3,16 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Progressive Overload Tracker</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
   </head>
 
   <body>
-    <header></header>
+    <header>
+      <h1>Progressive Overload</h1>
+      <p>
+        This website uses local storage on your browser to help you keep track
+        of how much you lifted and for how many repetitions for as many lifts as
+        you like. Happy lifting!
+      </p>
+    </header>
 
-    <main></main>
+    <main>
+      <section id="add-input">
+        <button id="add-btn">Add Lift</button>
+        <button id="cancel-btn">Cancel</button>
+        <!-- The input fields would show up here on clicking the "add" button -->
+        <!-- The "add" button would also change to say "Confirm", and a "cancel" button would appear -->
+      </section>
 
-    <footer></footer>
+      <section id="card-container"></section>
+      <!-- The above section is to contain all of the div-card elements that are created -->
+      <!-- from reading the localstorage. Each will contain a "Save Changes" and "Delete" button. -->
+    </main>
+
+    <footer>
+      <p>
+        This webiste is made by James Day. See the GitHub for this project
+        <a href="https://github.com/James-820/is120-final-project-james-day"
+          >here</a
+        >.
+      </p>
+    </footer>
   </body>
 </html>
