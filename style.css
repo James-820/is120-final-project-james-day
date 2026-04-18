@@ -10,6 +10,7 @@ body {
 
   min-height: 100vh;
   width: 100%;
+  background-color: #ededed;
 }
 
 /* __________________________________________________________________________________________
@@ -18,7 +19,7 @@ Header Styling
 __________________________________________________________________________________________ */
 
 header {
-  margin: 2rem;
+  padding: 2rem;
   justify-content: flex-start;
   row-gap: 1rem;
 }
@@ -31,14 +32,15 @@ ________________________________________________________________________________
 main {
   justify-content: flex-start;
   /* align-items: stretch; */
-  row-gap: 2rem;
+  row-gap: 1rem;
+  margin-top: 2rem;
 }
 
 section {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 1rem;
 
-  row-gap: 1rem;
+  /* row-gap: 1rem; */
 }
 
 button {
@@ -47,13 +49,18 @@ button {
   border-radius: 1rem;
 }
 
-button:active {
+/* button:active {
   background-color: black;
   color: white;
-}
+} */
 
 #cancel-btn {
   display: none;
+}
+
+#input-container {
+  row-gap: 1rem;
+  /* padding: 1rem; */
 }
 
 /* __________________________________________________________________________________________
@@ -65,8 +72,14 @@ footer {
   justify-content: flex-end;
   gap: 0.5rem;
   padding: 0.5rem;
-  background-color: lightgray;
+  background-color: white;
+  /* font-weight: bold; */
+}
+
+footer a {
   font-weight: bold;
+  text-decoration: none;
+  color: maroon;
 }
 
 /* __________________________________________________________________________________________
@@ -78,4 +91,14 @@ ________________________________________________________________________________
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.neumorph {
+  margin: 1rem;
+  /* border: 3px solid black; */
+  border-radius: 2rem;
+  background: #ededed;
+  box-shadow:
+    6px 6px 12px #c2c2c2,
+    -6px -6px 12px #ffffff;
 }
