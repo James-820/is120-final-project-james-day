@@ -8,14 +8,11 @@ let add_btn = document.querySelector("#add-btn");
 let cancel_btn = document.querySelector("#cancel-btn");
 
 if (localStorage.getItem("lift-list") === null) {
-  localStorage.setItem("lift-list", []);
+  // console.log("Empty local storage");
+  localStorage.setItem("lift-list", JSON.stringify([]));
 }
+let lift_list = JSON.parse(localStorage.getItem("lift-list"));
 
-let lift_list = [];
-// Add each to the list:
-for (const obj of JSON.parse(localStorage.getItem("lift-list"))) {
-  lift_list.push(obj);
-}
 let currently_adding = false;
 let name_id = "name-input";
 let weight_id = "weight-input";
@@ -99,19 +96,35 @@ function clearInputs() {
 // Make a lift card:
 // ________________________________________
 
-function makeCard() {}
+function makeCard(obj) {
+  let card = document.createElement("div");
+  card.classList = "flex-column-center";
+  let name = document.createElement("h3");
+  name.textContent = obj.name;
+  card.appendChild(name);
+  let weight = document.createElement("p");
+  weight.textContent = "Last Weight: " + obj.weight;
+  card.appendChild(weight);
+  let reps = document.createElement("p");
+  reps.textContent = "Reps: " + obj.reps;
+  card.appendChild(reps);
+  card_container.appendChild(card);
+}
 
 // Display all lifts from localstorage:
 // ________________________________________
 
 function displayAll() {
   card_container.innerHTML = "";
-  if (!lift_list) {
+  if (lift_list.length === 0) {
     // Early return for empty list:
     card_container.appendChild(makeEmpty());
     return;
   }
   console.log(lift_list);
+  for (const obj of lift_list) {
+    makeCard(obj);
+  }
 }
 
 // Add new lift object to localstorage array:
@@ -122,8 +135,14 @@ function addLift() {
   if (currently_adding) {
     // Add a lift with the inputs:
     // Make the lift object:
+    let object = {};
+    object.name = document.querySelector("#" + name_id).value;
+    object.weight = document.querySelector("#" + weight_id).value;
+    object.reps = document.querySelector("#" + reps_id).value;
     // Append to the list:
-    lift_list.push;
+    lift_list.push(object);
+    // Save to localStorage:
+    localStorage.setItem("lift-list", JSON.stringify(lift_list));
     // Remove input fields:
     clearInputs();
     // Refresh the list display for user:

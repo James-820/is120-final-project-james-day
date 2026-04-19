@@ -39,6 +39,7 @@ main {
 section {
   /* border: 1px solid black; */
   padding: 1rem;
+  width: calc(100vw - 2rem);
 
   /* row-gap: 1rem; */
 }
@@ -61,6 +62,14 @@ button {
 #input-container {
   row-gap: 1rem;
   /* padding: 1rem; */
+}
+
+#card-container {
+  row-gap: 2rem;
+}
+
+#track-section {
+  row-gap: 1rem;
 }
 
 /* __________________________________________________________________________________________
