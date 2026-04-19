@@ -5,6 +5,7 @@
 let card_container = document.querySelector("#card-container");
 let input_container = document.querySelector("#input-container");
 let add_btn = document.querySelector("#add-btn");
+let save_btn = document.querySelector("#save-btn");
 let cancel_btn = document.querySelector("#cancel-btn");
 
 if (localStorage.getItem("lift-list") === null) {
@@ -39,15 +40,15 @@ function makeEmpty() {
 
 // Make/clear input fields:
 // ________________________________________
-function makeInputs() {
+function makeInputs(n_val = "", w_val = null, r_val = "") {
   input_container.innerHTML = "";
   cancel_btn.style.display = "inline-block";
-  add_btn.textContent = "Save Changes";
+  // add_btn.textContent = "Save Changes";
   // Add inputs and labels:
   // Name:
   let name_container = document.createElement("div");
   let name_input = document.createElement("input");
-  name_input.type = "text";
+  name_input.value = n_val;
   name_input.placeholder = 'Ex: "Bench Press"';
   name_input.id = name_id;
   let name_label = document.createElement("label");
@@ -58,6 +59,7 @@ function makeInputs() {
   // Weight:
   let weight_container = document.createElement("div");
   let weight_input = document.createElement("input");
+  weight_input.value = w_val;
   weight_input.type = "number";
   weight_input.placeholder = "Ex: 125";
   weight_input.id = weight_id;
@@ -69,6 +71,7 @@ function makeInputs() {
   // Reps/Sets:
   let reps_container = document.createElement("div");
   let reps_input = document.createElement("input");
+  reps_input.value = r_val;
   reps_input.id = "reps-input";
   reps_input.placeholder = "Ex: 8, 7, 7";
   let reps_label = document.createElement("label");
@@ -87,15 +90,36 @@ function clearInputs() {
   input_container.innerHTML = "";
   input_container.style.padding = "0";
   cancel_btn.style.display = "none";
-  add_btn.textContent = "Add Lift";
+  save_btn.style.display = "none";
+  add_btn.style.display = "inline-block";
   currently_adding = false;
 }
 
 // Edit a lift card:
 // ________________________________________
+function saveEdit(index) {
+  // Change object values:
+  lift_list[index].name = document.querySelector("#" + name_id).value;
+  lift_list[index].weight = document.querySelector("#" + weight_id).value;
+  lift_list[index].reps = document.querySelector("#" + reps_id).value;
+  // Re-render:
+  clearInputs();
+  displayAll();
+}
+
 function editLift(index) {
-  console.log("Editing:");
-  console.log(lift_list[index]);
+  currently_adding = false;
+  makeInputs(
+    lift_list[index].name,
+    lift_list[index].weight,
+    lift_list[index].reps,
+  );
+  // Show/hide buttons:
+  save_btn.style.display = "inline-block";
+  add_btn.style.display = "none";
+  cancel_btn.style.display = "none";
+  // Add custom event listener:
+  save_btn.addEventListener("click", () => saveEdit(index), { once: true });
 }
 
 // Delete a lift card:
@@ -111,6 +135,7 @@ function deleteLift(index) {
 function makeCard(obj) {
   let card = document.createElement("div");
   card.classList = "flex-column-center";
+  card.style.rowGap = "0.5rem";
   // Lift info:
   let name = document.createElement("h3");
   name.textContent = obj.name;
@@ -123,10 +148,12 @@ function makeCard(obj) {
   card.appendChild(reps);
   // Edit/Delete buttons:
   let buttons = document.createElement("div");
+  buttons.style = "display: flex; justify-content: center; column-gap: 0.5rem;";
   let btn1 = document.createElement("button");
   btn1.textContent = "Edit";
   btn1.addEventListener("click", () => editLift(obj.index));
   let btn2 = document.createElement("button");
+  btn2.classList = "color-delete";
   btn2.textContent = "Delete";
   btn2.addEventListener("click", () => deleteLift(obj.index));
   buttons.appendChild(btn1);
@@ -162,6 +189,13 @@ function addLift() {
     object.weight = document.querySelector("#" + weight_id).value;
     object.reps = document.querySelector("#" + reps_id).value;
     object.index = lift_list.length;
+    // Check for invalid inputs:
+    if (object.name === null || object.weight === "" || object.reps === "") {
+      let warning = document.createElement("p");
+      warning.textContent = "All fields must be filled out";
+      warning.style.color = "#b30000";
+      input_container.appendChild(warning);
+    }
     // Append to the list:
     lift_list.push(object);
     // Save to localStorage:

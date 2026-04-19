@@ -12,18 +12,19 @@
   <body>
     <header class="flex-column-center neumorph">
       <h1>Progressive Overload</h1>
-      <p>
+      <p style="text-align: center">
         This website uses local storage on your browser to help you keep track
-        of how much you lifted and for how many repetitions for as many lifts as
-        you like. Happy lifting!
+        of how much you lifted and for how many repetitions.
       </p>
+      <p>Happy lifting!</p>
     </header>
 
     <main class="flex-column-center">
       <section class="flex-column-center neumorph">
         <div>
-          <button id="add-btn">Add Lift</button>
-          <button id="cancel-btn">Cancel</button>
+          <button id="add-btn" class="color-add">Add Lift</button>
+          <button id="save-btn" class="color-add">Save Changes</button>
+          <button id="cancel-btn" class="color-delete">Cancel</button>
         </div>
         <div id="input-container" class="flex-column-center"></div>
         <!-- The input fields would show up here on clicking the "add" button -->

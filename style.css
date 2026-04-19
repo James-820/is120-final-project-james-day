@@ -55,6 +55,13 @@ button {
   color: white;
 } */
 
+/* #add-btn {
+} */
+
+#save-btn {
+  display: none;
+}
+
 #cancel-btn {
   display: none;
 }
@@ -70,6 +77,10 @@ button {
 
 #track-section {
   row-gap: 1rem;
+}
+
+#track-section button {
+  padding: 0.5rem;
 }
 
 /* __________________________________________________________________________________________
@@ -110,4 +121,14 @@ ________________________________________________________________________________
   box-shadow:
     6px 6px 12px #c2c2c2,
     -6px -6px 12px #ffffff;
+}
+
+.color-add {
+  background-color: #00c700;
+  color: black;
+}
+
+.color-delete {
+  background-color: #b30000;
+  color: white;
 }
