@@ -15,6 +15,7 @@ if (localStorage.getItem("lift-list") === null) {
 let lift_list = JSON.parse(localStorage.getItem("lift-list"));
 
 let currently_adding = false;
+let warning_added = false;
 let name_id = "name-input";
 let weight_id = "weight-input";
 let reps_id = "reps-input";
@@ -93,6 +94,7 @@ function clearInputs() {
   save_btn.style.display = "none";
   add_btn.style.display = "inline-block";
   currently_adding = false;
+  warning_added = false;
 }
 
 // Edit a lift card:
@@ -114,12 +116,27 @@ function editLift(index) {
     lift_list[index].weight,
     lift_list[index].reps,
   );
+  // Define helper functions:
+  function handleSave() {
+    saveEdit(index);
+    cleanup();
+  }
+  function handleCancel() {
+    clearInputs();
+    cleanup();
+  }
+  function cleanup() {
+    save_btn.removeEventListener("click", handleSave);
+    cancel_btn.removeEventListener("click", handleCancel);
+  }
   // Show/hide buttons:
   save_btn.style.display = "inline-block";
   add_btn.style.display = "none";
-  cancel_btn.style.display = "none";
+  cancel_btn.style.display = "inline-block";
+  cancel_btn.textContent = "Cancel Changes";
   // Add custom event listener:
-  save_btn.addEventListener("click", () => saveEdit(index), { once: true });
+  save_btn.addEventListener("click", handleSave);
+  cancel_btn.addEventListener("click", handleCancel);
 }
 
 // Delete a lift card:
@@ -134,7 +151,7 @@ function deleteLift(index) {
 // ________________________________________
 function makeCard(obj) {
   let card = document.createElement("div");
-  card.classList = "flex-column-center";
+  card.classList = "flex-column-center card";
   card.style.rowGap = "0.5rem";
   // Lift info:
   let name = document.createElement("h3");
@@ -180,6 +197,10 @@ function displayAll() {
 // Add new lift object to localstorage array:
 // ________________________________________
 function addLift() {
+  let clear = () => clearInputs();
+  function cleanup() {
+    cancel_btn.removeEventListener("click", clear);
+  }
   // Check if currently adding lift:
   if (currently_adding) {
     // Add a lift with the inputs:
@@ -190,11 +211,15 @@ function addLift() {
     object.reps = document.querySelector("#" + reps_id).value;
     object.index = lift_list.length;
     // Check for invalid inputs:
-    if (object.name === null || object.weight === "" || object.reps === "") {
-      let warning = document.createElement("p");
-      warning.textContent = "All fields must be filled out";
-      warning.style.color = "#b30000";
-      input_container.appendChild(warning);
+    if (object.name === "" || object.weight === "" || object.reps === "") {
+      if (!warning_added) {
+        let warning = document.createElement("p");
+        warning.textContent = "All fields must be filled out";
+        warning.style = "color: #b30000; font-weight: bold;";
+        input_container.appendChild(warning);
+        warning_added = true;
+      }
+      return;
     }
     // Append to the list:
     lift_list.push(object);
@@ -202,6 +227,7 @@ function addLift() {
     localStorage.setItem("lift-list", JSON.stringify(lift_list));
     // Remove input fields:
     clearInputs();
+    cleanup();
     // Refresh the list display for user:
     displayAll();
   } else {
@@ -209,6 +235,8 @@ function addLift() {
     currently_adding = true;
     // Show inputs:
     makeInputs();
+    cancel_btn.textContent = "Cancel Add";
+    cancel_btn.addEventListener("click", clear, { once: true });
   }
 }
 
@@ -219,4 +247,4 @@ function addLift() {
 // Display lift cards:
 displayAll();
 add_btn.addEventListener("click", addLift);
-cancel_btn.addEventListener("click", clearInputs);
+// cancel_btn.addEventListener("click", clearInputs);
