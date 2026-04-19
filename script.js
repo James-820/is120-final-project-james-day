@@ -24,7 +24,6 @@ let reps_id = "reps-input";
 
 // Make an empty placeholder:
 // ________________________________________
-
 function makeEmpty() {
   let placeholder = document.createElement("div");
   let h3 = document.createElement("h3");
@@ -40,7 +39,6 @@ function makeEmpty() {
 
 // Make/clear input fields:
 // ________________________________________
-
 function makeInputs() {
   input_container.innerHTML = "";
   cancel_btn.style.display = "inline-block";
@@ -93,12 +91,27 @@ function clearInputs() {
   currently_adding = false;
 }
 
+// Edit a lift card:
+// ________________________________________
+function editLift(index) {
+  console.log("Editing:");
+  console.log(lift_list[index]);
+}
+
+// Delete a lift card:
+// ________________________________________
+function deleteLift(index) {
+  lift_list.splice(index, 1);
+  localStorage.setItem("lift-list", JSON.stringify(lift_list));
+  displayAll();
+}
+
 // Make a lift card:
 // ________________________________________
-
 function makeCard(obj) {
   let card = document.createElement("div");
   card.classList = "flex-column-center";
+  // Lift info:
   let name = document.createElement("h3");
   name.textContent = obj.name;
   card.appendChild(name);
@@ -108,12 +121,22 @@ function makeCard(obj) {
   let reps = document.createElement("p");
   reps.textContent = "Reps: " + obj.reps;
   card.appendChild(reps);
+  // Edit/Delete buttons:
+  let buttons = document.createElement("div");
+  let btn1 = document.createElement("button");
+  btn1.textContent = "Edit";
+  btn1.addEventListener("click", () => editLift(obj.index));
+  let btn2 = document.createElement("button");
+  btn2.textContent = "Delete";
+  btn2.addEventListener("click", () => deleteLift(obj.index));
+  buttons.appendChild(btn1);
+  buttons.appendChild(btn2);
+  card.appendChild(buttons);
   card_container.appendChild(card);
 }
 
 // Display all lifts from localstorage:
 // ________________________________________
-
 function displayAll() {
   card_container.innerHTML = "";
   if (lift_list.length === 0) {
@@ -129,7 +152,6 @@ function displayAll() {
 
 // Add new lift object to localstorage array:
 // ________________________________________
-
 function addLift() {
   // Check if currently adding lift:
   if (currently_adding) {
@@ -139,6 +161,7 @@ function addLift() {
     object.name = document.querySelector("#" + name_id).value;
     object.weight = document.querySelector("#" + weight_id).value;
     object.reps = document.querySelector("#" + reps_id).value;
+    object.index = lift_list.length;
     // Append to the list:
     lift_list.push(object);
     // Save to localStorage:
@@ -163,9 +186,3 @@ function addLift() {
 displayAll();
 add_btn.addEventListener("click", addLift);
 cancel_btn.addEventListener("click", clearInputs);
-// cancel_btn.addEventListener("click", () => {
-//   currently_adding = false;
-//   addLift();
-// });
-// makeInputs();
-// console.log(input_container);
