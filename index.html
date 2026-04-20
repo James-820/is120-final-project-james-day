@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Progressive Overload Tracker</title>
+    <title>Weightlift Tracker</title>
     <link rel="shortcut icon" href="trending-up.svg" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
@@ -12,17 +12,28 @@
   <body>
     <header class="flex-column-center neumorph">
       <h1>Progressive Overload</h1>
-      <p style="text-align: center">
-        This website uses local storage on your browser to help you keep track
-        of how much you lifted and for how many repetitions.
+      <h2>How To Use</h2>
+      <p>
+        To add a new lift, click the "Add Lift" button, fill out the
+        information, and click "Submit". Click "Cancel Add" to cancel.
       </p>
-      <p>Happy lifting!</p>
+      <p>
+        The "Reps" is simply a text input, so feel free to add anything you find
+        helpful. For example, you might add "8, 7, Failure" to mean 8 reps on
+        the first set, 7 reps on the second set, and going until failure on the
+        third, or "6, 6" to mean two sets of 6 reps each.
+      </p>
+      <p>
+        To edit an existing lift, click the lift's "Edit" button. Simply edit
+        the current information and hit "Save Changes" to confirm.
+      </p>
+      <p>Stay safe, and happy lifting!</p>
     </header>
 
     <main class="flex-column-center">
       <section class="flex-column-center neumorph">
         <div>
-          <button id="add-btn" class="color-add">Add Lift</button>
+          <button id="add-btn">Add Lift</button>
           <button id="save-btn" class="color-add">Save Changes</button>
           <button id="cancel-btn" class="color-delete">Cancel</button>
         </div>

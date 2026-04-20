@@ -93,6 +93,8 @@ function clearInputs() {
   cancel_btn.style.display = "none";
   save_btn.style.display = "none";
   add_btn.style.display = "inline-block";
+  add_btn.textContent = "Add Lift";
+  add_btn.classList = "";
   currently_adding = false;
   warning_added = false;
 }
@@ -235,6 +237,8 @@ function addLift() {
     currently_adding = true;
     // Show inputs:
     makeInputs();
+    add_btn.classList = "color-add";
+    add_btn.textContent = "Submit";
     cancel_btn.textContent = "Cancel Add";
     cancel_btn.addEventListener("click", clear, { once: true });
   }
