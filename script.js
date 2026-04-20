@@ -135,10 +135,19 @@ function editLift(index) {
   save_btn.style.display = "inline-block";
   add_btn.style.display = "none";
   cancel_btn.style.display = "inline-block";
-  cancel_btn.textContent = "Cancel Changes";
+  cancel_btn.textContent = "Cancel";
   // Add custom event listener:
   save_btn.addEventListener("click", handleSave);
   cancel_btn.addEventListener("click", handleCancel);
+}
+
+// Refresh object indexes:
+// ________________________________________
+function refreshIndex(list) {
+  for (let i = 0; i < list.length; i++) {
+    // Make sure indexes are correct:
+    list[i].index = i;
+  }
 }
 
 // Delete a lift card:
@@ -185,6 +194,7 @@ function makeCard(obj) {
 // ________________________________________
 function displayAll() {
   card_container.innerHTML = "";
+  refreshIndex(lift_list);
   if (lift_list.length === 0) {
     // Early return for empty list:
     card_container.appendChild(makeEmpty());
@@ -239,7 +249,7 @@ function addLift() {
     makeInputs();
     add_btn.classList = "color-add";
     add_btn.textContent = "Submit";
-    cancel_btn.textContent = "Cancel Add";
+    cancel_btn.textContent = "Cancel";
     cancel_btn.addEventListener("click", clear, { once: true });
   }
 }

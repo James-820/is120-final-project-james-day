@@ -24,6 +24,10 @@ header {
   row-gap: 1rem;
 }
 
+h1 {
+  text-align: center;
+}
+
 /* __________________________________________________________________________________________
 
 Main Styling
@@ -142,10 +146,64 @@ ________________________________________________________________________________
 }
 
 .card {
-  width: calc(100vw - 6rem);
+  /* width: calc(100vw - 6rem); */
+  width: 100%;
   padding: 1rem;
   border-radius: 1rem;
   border: 1px solid black;
 
   /* font-size: 1.5rem; */
+}
+
+/* __________________________________________________________________________________________
+
+Desktop Styling
+__________________________________________________________________________________________ */
+
+@media screen and (orientation: landscape) and (min-width: 933px) {
+  body {
+    grid-template: 1fr auto / 1fr 4fr;
+    grid-template-areas:
+      "head main"
+      "foot foot";
+  }
+
+  /* Header: 
+  ========================= */
+
+  header {
+    grid-area: head;
+  }
+
+  /* Main: 
+  ========================= */
+
+  main {
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  section {
+    /* width: 100%;
+    flex-shrink: 1; */
+    width: calc(100% - 2rem);
+  }
+
+  /* #card-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+  } */
+
+  /* Footer: 
+  ========================= */
+
+  footer {
+    grid-area: foot;
+  }
 }
